@@ -1,0 +1,7 @@
+## Title: Theryuzaki
+## Version: 2.0
+## Author: Дмитрий
+## Interface: 50000
+## SavedVariables: Base
+
+Frame.lua
