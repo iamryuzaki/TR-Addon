@@ -2,6 +2,7 @@ local target_hp = '';
 local target_mana = '';
 local player_hp = '';
 local player_mana = '';
+local rog_combo = 0;
 local Tick = {};
 
 print('Hallo to TheRyuzaki Addon');
@@ -15,6 +16,14 @@ function A_CastForTarget(name, target)
 	if (target == 'player') then TargetLastTarget() end
 end
 
+function A_IsCasting(name, target)
+	if not target then target = 'player'; end
+	local spell, _, _, _, _, endTime = UnitCastingInfo("target")
+	if spell then 
+		 if (not name or name == spell) then return true; end
+	end
+	return false;
+end
 function A_IsBuf(name, target, my)
 	if not target then target = 'player'; end
 	for i=1,40 do 
@@ -70,6 +79,7 @@ function ChekData()
 	target_mana = UnitMana('target') / (UnitManaMax('target') / 100);
 	player_hp = UnitHealth('player') / (UnitHealthMax('player') / 100);
 	player_mana = UnitMana('player') / (UnitManaMax('player') / 100);
+	rog_combo = GetComboPoints('target');
 end
 local Cron = {};
 local tmp_Cron = {};
@@ -107,16 +117,25 @@ function Update()
 	end
 end
 
--- Ваши функции
-function AutoCombo()
+local MacroID = 0;
+function AutoCombo(id)
 	SetTimeout('AutoCombo',0.5);
-	-- Ниже имя функции вашей атакРотации
-	DkAtack();
+	if not id then else MacroID = id; end
+	A_Atack(MacroID);
 end
-function HAttack()
-	if (A_IsDeBuf('Метка охотника', 'target', true)) then else A_CastForTarget('Метка охотника'); end 
+function A_Atack(id)
+	if not id then
+		print('Error! Not id functions.');
+	else 
+		if (_G['Attack_'..id]) then
+			_G['Attack_'..id]();
+		else
+			print('Error! Undefind function id:'..id);
+		end
+	end
 end
-function DkAtack()
+
+function Attack_1()
 	if (target_hp <= 35) then A_CastForTarget('Жнец душ'); end -- Жнец душ если хп у противника меньше или ровно 35%
 	if (A_IsBuf('Машина для убийств')) then A_CastForTarget('Уничтожение'); end -- Уничтожение если баф машина для убийств
 	if (A_IsBuf('Машина для убийств') and player_mana >= 20) then A_CastForTarget('Ледяной удар'); end -- Ледяной удар если баф машина для убийств и маны 20+
