@@ -147,7 +147,6 @@ function Attack_1() -- ФростДК (bulid 1)
 	A_CastForTarget('Вспышка болезни'); -- Вспышка болезни по кд
 	A_CastForTarget('Усиление рунического оружия'); -- Усиление рунического оружия по кд
 	A_CastForTarget('Ледяной столп'); -- Ледяной столп по кд
-	if (player_hp <= 90) then A_CastForTarget('Смертельное поглощение'); end -- ВО ВРЕД ДПС!
 	if (player_mana >= 80) then A_CastForTarget('Ледяной удар'); end -- Ледяной удар если маны 20+
 	A_CastForTarget('Воющий ветер');
 	if (player_mana >= 20) then A_CastForTarget('Ледяной удар'); end -- Ледяной удар если маны 20+
