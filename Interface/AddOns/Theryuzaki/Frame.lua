@@ -135,7 +135,7 @@ function A_Atack(id)
 	end
 end
 
-function Attack_1()
+function Attack_1() -- ФростДК (bulid 1)
 	if (target_hp <= 35) then A_CastForTarget('Жнец душ'); end -- Жнец душ если хп у противника меньше или ровно 35%
 	if (A_IsBuf('Машина для убийств')) then A_CastForTarget('Уничтожение'); end -- Уничтожение если баф машина для убийств
 	if (A_IsBuf('Машина для убийств') and player_mana >= 20) then A_CastForTarget('Ледяной удар'); end -- Ледяной удар если баф машина для убийств и маны 20+
