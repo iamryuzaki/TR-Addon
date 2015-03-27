@@ -7,6 +7,11 @@ local Tick = {};
 
 print('Hallo to TheRyuzaki Addon');
 
+SLASH_TR1 = '/tr'; 
+function SlashCmdList.TR(msg, editbox) 
+	print("I work!");
+end
+
 function A_CastForTarget(name, target)
 	if (target == 'player') then TargetUnit('player'); end
 	Cooldown = GetSpellCooldown(name);
@@ -134,6 +139,11 @@ function A_Atack(id)
 		end
 	end
 end
+
+
+-- ~~~~ CUSTOM SCRIPTS ~~~~
+
+
 
 function Attack_1() -- ФростДК (bulid 1)
 	-- ~~~~Макросы~~~~~
