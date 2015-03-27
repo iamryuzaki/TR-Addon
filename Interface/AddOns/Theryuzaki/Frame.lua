@@ -164,3 +164,18 @@ function Attack_1() -- ФростДК (bulid 1)
 	A_CastForTarget('Удар чумы');
 	A_CastForTarget('Вытягивание чумы');
 end
+
+
+function Attack_3() -- БМ Хант (bulid 1) (by sher)
+	-- ~~~~Макросы~~~~~
+	-- 1. "/script A_Atack(3)" - Макрос для атаки вручную о при нажатии на него.
+	-- 2. "/script AutoCombo(3)" - Макрос включения автоматического режима боя.
+	-- 3. "/script DelTimeout('AutoCombo')" - Макрос для выключение автоматического режима боя.
+	-- ~~~~~~~~~~~~~~~~~
+	A_CastForTarget('Звериный гнев');
+	A_CastForTarget('Команда "Взять!"');
+	if (A_IsDeBuf('Укус змеи', 'target', true)) then else A_CastForTarget('Укус змеи'); end
+	if (A_IsBuf('Охотничий азарт')) then 
+		if (A_IsBuf('Удар зверя', 'pet')) then A_CastForTarget('Чародейский выстрел'); else A_CastForTarget('Залп'); end 
+	end
+end
