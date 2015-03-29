@@ -13,6 +13,43 @@ function SlashCmdList.TR(msg, editbox)
 	print("I work!");
 end
 
+function A_GetCollDown(name)
+	local start, duration, enabled = GetSpellCooldown(name);
+	if enabled == 0 then
+		return -1;
+	elseif ( start > 0 and duration > 0) then
+		return (start + duration - GetTime());
+	else
+		return 0;
+	end
+end
+
+function A_GetStackBuff(name, target, my)
+	if not target then target = 'player'; end
+	for i=1,40 do 
+		local D, arg2, arg3, count, arg5, arg6, arg7, arg8, arg9, arg10 = UnitBuff(target,i);
+		if (D and D == name) then
+			if ((arg8 == 'player' and my) or not my) then
+				return count;
+			end
+		end 
+	end
+	return 0;
+end
+
+function A_GetStackDeBuff(name, target, my)
+	if not target then target = 'player'; end
+	for i=1,40 do 
+		local D, arg2, arg3, count, arg5, arg6, arg7, arg8, arg9, arg10 = UnitDebuff(target,i);
+		if (D and D == name) then
+			if ((arg8 == 'player' and my) or not my) then
+				return count;
+			end
+		end 
+	end
+	return 0;
+end
+
 function A_CastForTarget(name, target)
 	if (target == 'player') then TargetUnit('player'); end
 	Cooldown = GetSpellCooldown(name);
@@ -200,5 +237,34 @@ function Attack_3() -- БМ Хант (bulid 1) (by sher)
 		if ((A_IsBuf('Охотничий азарт') and player_mana >= 10) or player_mana >= 30) then A_CastForTarget('Чародейский выстрел'); end
 	else
 		A_CastForTarget('Выстрел кобры');
+	end
+end
+
+
+function Interval_DefinesDK()
+	SetTimeout('Interval_DefinesDK',0.5);
+	DefinesDK();
+end
+function DefinesDK() -- БлудДК (bulid 3)
+	-- ~~~~Макросы~~~~~
+	-- 1. "/script Interval_DefinesDK()" - Макрос для атаки вручную о при нажатии на него.
+	-- ~~~~~~~~~~~~~~~~~
+	if (player_hp <= 90) then 
+		A_CastForTarget('Захват рун'); 
+	end
+	if (player_hp <= 85) then 
+		A_CastForTarget('Костяной щит');
+	end
+	if (player_hp <= 50) then 
+		A_CastForTarget('Воскрешение мертвых'); 
+		A_CastForTarget('Смертельный союз'); 
+		A_CastForTarget('Кровь вампира');
+	end
+	if (player_hp <= 30) then 
+		A_CastForTarget('Незыблемость льда'); 
+		A_CastForTarget('Антимагический панцирь'); 
+	end
+	if (A_IsBuf('Зимний горн')) then
+		A_CastForTarget('Зимний горн'); 
 	end
 end
