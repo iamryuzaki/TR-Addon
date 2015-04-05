@@ -5,8 +5,12 @@ local player_mana = '';
 local rog_combo = 0;
 local pal_power = 0;
 local Tick = {};
+local player_class = UnitClass("player");
+local player_numspec, player_spec = GetSpecializationInfo(GetSpecialization());
 
-print('Hallo to TheRyuzaki Addon');
+print(player_spec);
+
+
 
 SLASH_TR1 = '/tr'; 
 function SlashCmdList.TR(msg, editbox) 
@@ -198,8 +202,10 @@ function Attack_1() -- ФростДК (bulid 3)
 	if (A_IsDeBuf('Кровавая чума', 'target', true)) then 
 	else
 		A_CastForTarget('Вспышка болезни'); -- Если на противнике нету Кровавой чумы то пытаемся вешать сначало Вспышка болезни
-		A_CastForTarget('Нечестивая порча'); -- Если на противнике нету Кровавой чумы и не сработала Вспышка болезни то юзаем Нечестивая порча
 		A_CastForTarget('Удар чумы');
+	end
+	if (A_IsBuf('Морозная дымка') and A_IsBuf('Машина для убийств') == false and player_mana <= 50) then
+		A_CastForTarget('Воющий ветер'); -- если есть морозная дымка и и нету машины для убийств то юзаем воющий ветер
 	end
 	if (player_mana >= 80) then A_CastForTarget('Ледяной удар'); end
 	A_CastForTarget('Уничтожение');
@@ -208,8 +214,8 @@ function Attack_1() -- ФростДК (bulid 3)
 		A_CastForTarget('Воющий ветер'); -- если есть морозная дымка и и нету машины для убийств то юзаем воющий ветер
 	end
 	A_CastForTarget('Воющий ветер'); -- Если нету на ледяной удар рун то используем Воющий ветер
+	A_CastForTarget('Зимний горн'); -- Если мало рунической энергии то используем Зимний горн(+20 к энергии)
 	A_CastForTarget('Усиление рунического оружия'); -- Если все руны КД и нету рунической силы то пытаемся использовать Усиление рунического оружия
-	A_CastForTarget('Зимний горн'); -- Если мало рунической энергии то используем Зимний горн(+20 к энергии)	
 end
 
 local A3_ManaFull = true;
@@ -246,7 +252,7 @@ function Interval_DefinesDK()
 end
 function DefinesDK() -- БлудДК (bulid 3)
 	-- ~~~~Макросы~~~~~
-	-- 1. "/script Interval_DefinesDK()" - Макрос для атаки вручную о при нажатии на него.
+	-- 1. "/script Interval_DefinesDK()" - Макрос для атаки вручную о при нажатии на него
 	-- ~~~~~~~~~~~~~~~~~
 	if (player_hp <= 90) then 
 		A_CastForTarget('Захват рун'); 
