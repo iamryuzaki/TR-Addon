@@ -219,13 +219,13 @@ function Attack3()
 	A_Atack(3);
 end
 function Attack_3()
-	if (IsBuf('Дух железного ястреба') == false) then SpellUse('Дух железного ястреба'); end
-	if (GetHeal('target') <= 20) then SpellUse('Убийственный выстрел'); end
+	if (IsBuf('Дух железного ястреба') == false) then SpellUse('Дух железного ястреба'); end -- Если не нажат дух ястреба то юзаем
+	if (GetHeal('target') <= 20) then SpellUse('Убийственный выстрел'); end -- если у цели меньше 20% то юзаем убийтсвенный выстрел
 	if (IsDeBuf('Укус змеи', 'target', true) == false and GetMana('player') >= 15) then SpellUse('Укус змеи'); end
-	if (IsBuf('Огонь!')) then SpellUse('Прицельный выстрел'); end
-	if (GetHeal('pet') >= 0.01) then SpellUse('Ярость рыси'); end
-	if (GetMana('player') >= 45) then SpellUse('Выстрел химеры'); end
-	SpellUse('Мощный выстрел');
-	if ((IsBuf('Охотничий азарт') and GetMana('player') >= 10) or GetMana('player') >= 30) then SpellUse('Чародейский выстрел'); end
-	SpellUse('Верный выстрел');	
+	if (IsBuf('Огонь!')) then SpellUse('Прицельный выстрел'); end -- Если есть баф - Огонь! то юзаем прицельный выстрел
+	if (GetHeal('pet') >= 0.01) then SpellUse('Ярость рыси'); end -- если пет не мертвый то юзаем ярость рыси
+	if (GetMana('player') >= 45) then SpellUse('Выстрел химеры'); end -- Если концентрация больше или ровно 45% то юзаем выстрел химеры по кд
+	SpellUse('Мощный выстрел'); -- По кд мощьный выстрел
+	if ((IsBuf('Охотничий азарт') and GetMana('player') >= 10) or GetMana('player') >= 30) then SpellUse('Чародейский выстрел'); end -- если 30% концентрации или 10% и есть прок - чародейский выстрел
+	SpellUse('Верный выстрел'); -- Если не чего выше не юзнулось - юзаем верный выстрел.
 end
