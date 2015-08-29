@@ -1,6 +1,6 @@
-## Title: Theryuzaki
-## Version: 2.0
-## Author: Дмитрий
+## Title: TR-Addon
+## Version: 2.1a
+## Author: TheRyuzaki
 ## Interface: 50000
 ## SavedVariables: Base
 
