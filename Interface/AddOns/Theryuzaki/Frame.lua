@@ -69,7 +69,7 @@ function IsBuf(name, target, my)
 		local D, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 = UnitBuff(target,i);
 		if (D and D == name) then
 			if ((arg8 == 'player' and my) or not my) then
-				return true;
+				return arg4;
 			end
 		end 
 	end
@@ -86,7 +86,7 @@ function IsDeBuf(name, target, my)
 		local D, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 = UnitDebuff(target,i);
 		if (D and D == name) then 
 			if ((arg8 == 'player' and my) or not my) then
-				return true;
+				return arg4;
 			end
 		end 
 	end
@@ -229,3 +229,28 @@ function Attack_3()
 	if ((IsBuf('Охотничий азарт') and GetMana('player') >= 10) or GetMana('player') >= 30) then SpellUse('Чародейский выстрел'); end -- если 30% концентрации или 10% и есть прок - чародейский выстрел
 	SpellUse('Верный выстрел'); -- Если не чего выше не юзнулось - юзаем верный выстрел.
 end
+
+
+
+function Attack4()
+	SetTimeout('Attack4',0.3);
+	A_Atack(4);
+end
+function Attack_4()
+	--UnitPower('player', 13)
+	if (IsBuf('Облик Тьмы') == false) then SpellUse('Облик Тьмы'); end
+	if (IsBuf('Внутренний огонь') == false) then SpellUse('Внутренний огонь'); end
+	if (IsCasting()) then return; end
+	if (IsDeBuf('Прикосновение вампира') == false) then SpellUse('Прикосновение вампира'); end
+	if (IsDeBuf('Слово Тьмы: Боль') == false) then SpellUse('Слово Тьмы: Боль'); end
+	if (IsDeBuf('Всепожирающая чума') ~= false) then SpellUse('Пытка разума'); end
+	if (UnitPower('player', 13) == false or UnitPower('player', 13) < 3) then SpellUse('Взрыв разума'); end
+	if (UnitPower('player', 13) ~= false and UnitPower('player', 13) == 3) then SpellUse('Всепожирающая чума'); end
+	SpellUse('Пытка разума');
+end
+function SS()
+	IsBuf('Костяной щит');
+end
+
+
+
