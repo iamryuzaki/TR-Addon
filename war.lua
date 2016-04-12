@@ -8,9 +8,12 @@ function Attack_6()
 		SpellUse("Яростный выпад");	
 	end
 	if (IsBuf("Прилив крови")) then 
+		SpellUse("Удар колосса");
 		SpellUse("Зверский удар");	
 	end
 	SpellUse("Кровожадность");
+	SpellUse("Удар громовержца");
+	SpellUse("Рев дракона");
 	if (GetMana('player') >= 30) then
 		SpellUse("Зверский удар");
 	end
