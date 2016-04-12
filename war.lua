@@ -18,3 +18,9 @@ function Attack_6()
 		SpellUse("Зверский удар");
 	end
 end
+
+
+function Attack6()
+	SetTimeout('Attack6',0.5);
+	A_Atack(6);
+end
