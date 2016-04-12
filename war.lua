@@ -27,15 +27,16 @@ end
 
 
 local faze = 0;
+
 function Attack_8() 
-	if (IsDeBuf("Лунный огонь") == false)
+	if (IsDeBuf("Лунный огонь") == false) then
 		SpellUse("Лунный огонь");
 	end 
-	if (IsDeBuf("Солнечный огонь") == false)
+	if (IsDeBuf("Солнечный огонь") == false) then
 		SpellUse("Солнечный огонь");
 	end
 	
-	if (IsBuf("Лунное затмение"))
+	if (IsBuf("Лунное затмение")) then
 	    faze = 1;
 		SpellUse("Звездопад");
 		SpellUse("Звездный поток");
@@ -44,12 +45,12 @@ function Attack_8()
 		SpellUse("Звездный огонь");
 		
 	end
-	if (IsBuf("Солнечное затмение"))
+	if (IsBuf("Солнечное затмение")) then
 	    faze = 0;
 		SpellUse("Звездный поток");
 		SpellUse("Гнев");
 	end
-	if (IsBuf("Лунное затмение") == false and IsBuf("Солнечное затмение") == false)
+	if (IsBuf("Лунное затмение") == false and IsBuf("Солнечное затмение") == false) then
 	
 	    if (faze == 0) then
 			SpellUse("Гнев");
@@ -58,3 +59,4 @@ function Attack_8()
 		end
 	end
 end
+
