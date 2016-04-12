@@ -26,7 +26,7 @@ function Attack6()
 end
 
 
-
+local faze = 0;
 function Attack_8() 
 	if (IsDeBuf("Лунный огонь") == false)
 		SpellUse("Лунный огонь");
