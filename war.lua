@@ -10,12 +10,7 @@ function Attack_6()
 	if (IsBuf("Прилив крови")) then 
 		SpellUse("Зверский удар");	
 	end
-	if (GetMana('player') >= 30) then
-		SpellUse("Зверский удар");
-	end
-	if (GetMana('player') < 30) then
-		SpellUse("Кровожадность");
-	end
+	SpellUse("Кровожадность");
 	if (GetMana('player') >= 30) then
 		SpellUse("Зверский удар");
 	end
