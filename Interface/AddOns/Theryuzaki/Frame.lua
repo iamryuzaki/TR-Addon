@@ -23,27 +23,27 @@ function Log(msg)
 	print('|cFFFF0000'..'[TheRyuzaki]: |r'..msg);
 end
 
-
-
-local player_class = UnitClass("player");
-local player_numspec, player_spec = GetSpecializationInfo(GetSpecialization());
---RMT('/с Здравствуйте, Я <'..GetUnitName("player")..'> ['..player_class..'] '.. UnitLevel('player')..'го уровня в спеке ['..player_spec..']');
-
-
-
+-- GLOBALS
+local m_IsMovieng = false;
+local last_x, last_y = 0;
+-- END GLOBALS
 
 Log('Addon TheRyuzaki has end init.');
-
 
 
 -- Используем способность
 -- name - имя способности в той лаколизации в которой у вас клиент(Обязательное поле)
 -- target - цель заклинания. Если не указано поле то целью является выделеная цель(Не обязательное поле)
 function SpellUse(name)
-	local cd = GetSpellCooldown(name);
+	local cd, cd_time, _ = GetSpellCooldown(name);
 	if (cd == 0) then
-		RMT('/cast '..name);
+		local sp_name, sp_null, sp_icon, sp_manacost = GetSpellInfo(name);
+		if (sp_manacost <= UnitMana('player')) then
+			RMT('/cast '..name);
+			return true;
+		end
 	end
+	return false;
 end
 
 -- Проверят - кастует ли юнит
@@ -57,6 +57,10 @@ function IsCasting(name, target)
 		 if (not name or name == spell or name == spell2) then return true; end
 	end
 	return false;
+end
+
+function IsMovieng() 
+	return m_IsMovieng;
 end
 
 -- Проверяет - вестли баф
@@ -113,7 +117,7 @@ local i_OnUpdate = 0;
 local i_interval = 0.25;
 local lastint = 0;
 local function OnUpdate(self,elapsed)
-    i_OnUpdate = i_OnUpdate + elapsed
+	i_OnUpdate = i_OnUpdate + elapsed
     if i_OnUpdate >= i_interval then
 		i_OnUpdate = 0;
 		Update();
@@ -132,6 +136,14 @@ function DelTimeout(name)
 	tmp_Cron[name] = nil;
 end
 function Update()
+	local x, y = GetPlayerMapPosition("player");
+	if (last_x ~= x or last_y ~= y) then
+		last_x = x;
+		last_y = y;
+		m_IsMovieng = true;
+	else
+		m_IsMovieng = false;
+	end
 	local GC = true;
 	for i, v in pairs(Cron) do
 		if (Cron[i] == nil) then
@@ -253,4 +265,5 @@ function SS()
 end
 
 
+Log('All macro loaded!');
 
