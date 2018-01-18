@@ -73,6 +73,7 @@ function IsBuf(name, target, my)
 		local D, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 = UnitBuff(target,i);
 		if (D and D == name) then
 			if ((arg8 == 'player' and my) or not my) then
+				if (arg4 == 0) then arg4 = 1; end;
 				return arg4;
 			end
 		end 
@@ -90,6 +91,7 @@ function IsDeBuf(name, target, my)
 		local D, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 = UnitDebuff(target,i);
 		if (D and D == name) then 
 			if ((arg8 == 'player' and my) or not my) then
+				if (arg4 == 0) then arg4 = 1; end;
 				return arg4;
 			end
 		end 
